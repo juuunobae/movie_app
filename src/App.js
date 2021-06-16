@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// 파일에서 jsx를 사용하려면 React를 import 해주어야 한다.
+// jsx = html문법을 Javascript내부에 작성한 것
+import React from "react";
 
+function Food({ fav }) {
+  return <h2>I like {fav}</h2>;
+}
+
+const foods = ["noodle", "bergur", "rice", "pasta"];
+
+// ReactDom에서 rendering 할 Component
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello</h1>
+      {foods.map((food) => (
+        <Food fav={food} />
+      ))}
     </div>
   );
 }
