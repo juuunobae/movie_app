@@ -12,9 +12,8 @@ const foods = ["noodle", "bergur", "rice", "pasta"];
 function App() {
   return (
     <div>
-      <h1>Hello</h1>
-      {foods.map((food) => (
-        <Food fav={food} />
+      {foods.map((food, index) => (
+        <Food fav={food} key={index} />
       ))}
     </div>
   );

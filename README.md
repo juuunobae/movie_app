@@ -109,3 +109,126 @@
     export default App
 ```
 - props는 자식 컴포넌트의 첫번 째 argument로 간다
+
+## 데이터 렌더링
+- 배열을 Component로 변환해서 Component 여러개를 rendering한다.
+- .map 메소드 사용하기
+```jsx
+
+    // App.js
+
+    // 첫번 째 방법
+    const people = [
+        {
+            name: 'juno',
+            age: 28
+        },
+        {
+            name: 'a',
+            age: 23
+        },
+        {
+            name: 'b',
+            age: 15
+        },
+        {
+            name: 'c',
+            age: 45
+        },{
+            name: 'd',
+            age: 36
+        },
+    ]
+
+    function Component({ name, age }) {
+        return (
+            <div> I am {name}, {age} years old</div>
+        );
+    }
+
+    function App() {
+        return (
+            <div>
+                {people.map((person) => (
+                    <Component name={person.name} age={person.age} />
+                ))}
+            </div>
+        );
+    }
+
+    // 두번 째 방법
+
+    function Component({ name, age }) {
+        return (
+            <div> I am {name}, {age} years old</div>
+        );
+    }
+
+
+    // 함수를 외부로 빼준다.
+    function renderPeople(person) {
+        return <Component name={person.name} age={person.age} />
+    }
+
+    function App() {
+        return (
+            <div>
+                {people.map(renderPeople)}
+            </div>
+        );
+    }
+```
+
+### `Each child in a list should have a unique "key" prop` 에러 해결하기
+- 리액트에서 배열을 랜더링할 때 고유한 key prop이 꼭 필요하다.
+- 데이터를 추가할 때마다 고정적인 고유 값을 부여해주면 된다.
+- 데이터베이스에 데이터를 추가하면 주로 해당 데이터를 가리키는 고유 id가 있고, 그 고유 id를 key prop으로 사용하면 된다.
+  
+```jsx
+
+    // 각 
+    const people = []
+        {
+            id: 0,
+            name: 'juno',
+            age: 28
+        },
+        {
+            id: 1,
+            name: 'a',
+            age: 23
+        },
+        {
+            id: 2,
+            name: 'b',
+            age: 15
+        },
+        {
+            id: 3,
+            name: 'c',
+            age: 45
+        },{
+            id: 4,
+            name: 'd',
+            age: 36
+        },
+    ]
+
+    function Component({ name, age }) {
+        return (
+            <div> I am {name}, {age} years old</div>
+        );
+    }
+
+    function App() {
+        return (
+            <div>
+                {people.map((person) => (
+                    // key prop을 부여 해주고 자식 Component에서 사용하지 않아도 된다.
+                    <Component key={person.id} name={person.name} age={person.age} />
+                ))}
+            </div>
+        );
+    }
+
+```
