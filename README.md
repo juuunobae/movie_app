@@ -62,7 +62,7 @@
 - class component는 return을 가지지 않는다.
 - App Component는 React Component에서 확장된 Component이며, React Component가 가지고 있는 기능들을 App Component에서도 수정 및 사용할 수 있다.
 - class component는 항상 render method를 실행한다.
-- 
+- class component에서는 state를 사용할 수 있다.
 ```jsx
 
     // App.js
@@ -193,6 +193,28 @@
     }
 ```
 > [PropTypes](https://ko.reactjs.org/docs/typechecking-with-proptypes.html)에 여러 데이터타입을 명시해줄 수 있다.
+
+## State
+- state는 object이다.
+- component에서 동적인 데이터를 다룰 때 사용된다.
+### State 정의
+```jsx
+    class App extends React.Component {
+        state = {
+            count: 0,
+        };
+
+        render() {
+            return (
+                <div>
+                    <h1>The number is {this.state.count}</h1>
+                </div>
+            );
+        }   
+    }   
+
+    export default App; 
+```
 
 ## 데이터 렌더링
 - 배열을 Component로 변환해서 Component 여러개를 rendering한다.
