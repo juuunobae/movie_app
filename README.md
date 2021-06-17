@@ -38,9 +38,11 @@
 - 컴포넌트를 사용하여 UI를 독립적이고 재사용 가능한 부분으로 분리하고 각 부분을 독립적으로 생각할 수 있다.
 - 임의의 입력(props)을 받아들이고 어떤 게 화면에 나타나야 하는 지를 설명하는 리액트 요소를 반환한다.
 
-### Component 생성
+## Component 생성
 - 새로운 파일을 만들어서 생성해도 되고, App.js에서 생성해도 된다.
 - Component의 이름은 대문자로 시작한다. 
+
+### Function Component
 ```jsx
 
     // Component.js
@@ -55,10 +57,31 @@
 
     export default Component
 ```
-- jsx = html문법을 Javascript내부에 작성한 것이다.
-- jsx를 사용하려면 React를 import 해야 한다.
 
-### Component 사용
+### Class Component
+- class component는 return을 가지지 않는다.
+- App Component는 React Component에서 확장된 Component이며, React Component가 가지고 있는 기능들을 App Component에서도 수정 및 사용할 수 있다.
+- class component는 항상 render method를 실행한다.
+- 
+```jsx
+
+    // App.js
+
+    import React from 'react';
+
+    class App extends React.Component {
+        render() {
+            return (
+                <h1>Im a class Component</h1>
+            )
+        }
+    }
+```
+
+> Funtion Component는 function이고 무언가를 return하고 스크린에 표시된다.<br/>
+> Class Component는 class이고, react Component로 부터 확장되고 render method를 이용해 screen에 표시된다.
+
+## Component 사용
 ```jsx
     
     // App.js
@@ -81,6 +104,7 @@
 ## Props
 - 부모 Component에서 자식 컴포넌트에게 주는 값
 - 자식 Component에서는 props를 받아오기만 하고 수정하지는 못한다.
+- 
 ### Props 사용하기
 ```jsx
 
@@ -110,14 +134,17 @@
 ```
 - props는 자식 컴포넌트의 첫번 째 argument로 간다
 
-## 데이터 렌더링
-- 배열을 Component로 변환해서 Component 여러개를 rendering한다.
-- .map 메소드 사용하기
+### PropTypes
+- 부모의 Component로 부터 전달 받은 props의 데이터의 유효성을 검증해 자식 Component에서 명시해 놓은 props type과 일치하는지 확인해주는 모듈
+- 일치하지 않으면 console창에 에러 경고문이 띄워진다.
+  
+- `npm install prop-types`로 설치
 ```jsx
 
     // App.js
 
-    // 첫번 째 방법
+    import PropTypes from 'prop-types'
+
     const people = [
         {
             name: 'juno',
@@ -139,6 +166,64 @@
             age: 36
         },
     ]
+
+    function Component({ name, age }) {
+        return (
+            <div> I am {name}, {age} years old</div>
+        );
+    }
+
+    // propTypes의 이름은 항상 propTypes여야 한다.
+    Component.propTyeps = {
+        // key = props
+        // velue = 데이터의 타입을 명시
+        // ** isRequired = 필수로 제공되어야 하는 props
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number.isRequired
+    }
+
+    function App() {
+        return (
+            <div>
+                {people.map((person) => (
+                    <Component name={person.name} age={person.age} />
+                ))}
+            </div>
+        );
+    }
+```
+> [PropTypes](https://ko.reactjs.org/docs/typechecking-with-proptypes.html)에 여러 데이터타입을 명시해줄 수 있다.
+
+## 데이터 렌더링
+- 배열을 Component로 변환해서 Component 여러개를 rendering한다.
+- .map 메소드 사용하기
+```jsx
+
+    // App.js
+
+    const people = [
+        {
+            name: 'juno',
+            age: 28
+        },
+        {
+            name: 'a',
+            age: 23
+        },
+        {
+            name: 'b',
+            age: 15
+        },
+        {
+            name: 'c',
+            age: 45
+        },{
+            name: 'd',
+            age: 36
+        },
+    ]
+
+    // 첫번 째 방법
 
     function Component({ name, age }) {
         return (
