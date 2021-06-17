@@ -198,23 +198,29 @@
 - state는 object이다.
 - component에서 동적인 데이터를 다룰 때 사용된다.
 ### State 정의
+- state객체를 생성한 후 그 안에 동적 데이터를 정의 한다.
 ```jsx
     class App extends React.Component {
         state = {
             count: 0,
         };
-
+        
         render() {
             return (
+                // state안에 있는 count를 불러오는 코드
                 <div>
                     <h1>The number is {this.state.count}</h1>
                 </div>
             );
         }   
-    }   
+    }
 
     export default App; 
 ```
+
+### setState
+- state에 있는 값을 바꾸기 위해 필요한 코드
+- setState함수가 호출되면 컴포넌트가 리렌더링된다.
 
 ## 데이터 렌더링
 - 배열을 Component로 변환해서 Component 여러개를 rendering한다.
