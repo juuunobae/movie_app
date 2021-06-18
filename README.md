@@ -219,8 +219,57 @@
 ```
 
 ### setState
-- state에 있는 값을 바꾸기 위해 필요한 코드
+- state에 있는 데이터를 직접 변경하지 못한다.
+- state에 있는 값을 바꾸기 위해서는 setState가 필욛하다.
 - setState함수가 호출되면 컴포넌트가 리렌더링된다.
+```jsx
+    class App extends React.Component {
+        state = {
+            count: 0,
+        };
+
+        // 이벤트 콜백함수를 생성한 후 내부에 setState method를 사용한다.
+        // state는 객체이기 때문에 setState method의 인자는 객체나 함수형태로 줄 수 있다.
+        // 객체나 함수안에 변경할 데이터와 값을 넣는다.
+
+        // setState를 객체로 사용
+
+        // add = () => {
+        //     this.setState({
+        //         count: this.state.count + 1,
+        //     })
+        // }
+
+
+        // setState를 함수로 사용
+        // 함수의 인자는 현재의 state객체를 전달해준다.
+
+        add = () => {
+            this.setState(current => ({
+                count: current.count + 1,
+            }))
+        }
+
+        minus = () => {
+            this.setState(current => ({
+                count: current.count - 1,
+            }))
+        }
+        
+        render() {
+            return (
+                <div>
+                    <h1>The number is {this.state.count}</h1>
+                    <button onClick={this.add}>Add</button>
+                    <button onClick={this.minus}>Minus</button>
+                </div>
+            );
+        }   
+    }
+
+    export default App; 
+```
+
 
 ## 데이터 렌더링
 - 배열을 Component로 변환해서 Component 여러개를 rendering한다.
