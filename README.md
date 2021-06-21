@@ -101,10 +101,42 @@
 - 우리가 만든 Component를 불러올 때는 import를 사용해서 불러와준다.
 - Component안에 Component를 import해서 사용할 수 있다.
 
+## Component Life Cycle API
+- component가 브라우저에서 나타날 때, 사라질 때, 업데이트 될 때 호출되는 API이다.]
+
+### Mounting
+- 생성될 때
+  - constructor()
+    - react의 기능은 아니고 javascript에서 class가 만들어지면 실행되는 메서드이다.
+    - component가 mount(생성)되기 전에 호출된다.
+    - `this.state`에 객체를 할당하여 지역 state를 초기화와 인스턴스에 이벤트처리 메서드를 바인딩 목적으로 사용된다.
+    - `React.Component`를 상속한 component의 생성자를 구현할 때에는 먼저 `super(props)`를 호출해야 한다.
+  
+  - render()
+    - class component에서 반드시 구현되어야하는 유일한 메서드이다.
+    - 작성한 jsx를 html로 변환해 실제 브라우저에 rendering한다.
+  
+  - componentDidMount()
+    - component가 mount된 직후에 호출된다.
+    - DOM 노드가 있어야 하는 초기화 작업은 이 메서드에 작성하면 된다.
+    - 외부에서 데이터를 불러와야 한다면, 네트워크 요청을 보내기 적절하다.
+  
+### Updating 
+- 업데이트 될 때
+  - componentDidUpdate()
+    - setState가 실행될 때, 즉 props의 업데이트가 완료되면 실행되는 메서드이다.
+    - component가 갱신되었을 때 DOM을 조작하거나, 이전과 현재 props를 비교하여 네트워크 요청을 보내는 작업을 할 때 이 메서드를 사용한다.
+
+### Unmounting
+- 사라질 때
+  - componentWillUnmount()
+    - component가 mount 해제되어 제거되기 직전에 호출된다.
+    - 타이머 제거, 네트워크 요청 취소, componentDidUpdate()내에서 생성된 구독 해제 등 필요한 모든 정리작업을 수행할 때 이 메서드를 사용한다.
+
 ## Props
 - 부모 Component에서 자식 컴포넌트에게 주는 값
 - 자식 Component에서는 props를 받아오기만 하고 수정하지는 못한다.
-- 
+
 ### Props 사용하기
 ```jsx
 
@@ -349,7 +381,7 @@
 ```jsx
 
     // 각 
-    const people = []
+    const people = [
         {
             id: 0,
             name: 'juno',

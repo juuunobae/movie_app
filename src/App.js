@@ -1,34 +1,28 @@
 // 파일에서 jsx를 사용하려면 React를 import 해주어야 한다.
 // jsx = html문법을 Javascript내부에 작성한 것
 import React from "react";
-import ProtoType from "prop-types";
+import axios from "axios";
 
 // ReactDom에서 rendering 할 Component
 class App extends React.Component {
   state = {
-    count: 0,
+    isLoading: true,
+    movies: [],
   };
 
-  add = () => {
-    this.setState((current) => ({
-      count: current.count + 1,
-    }));
+  getMovies = async () => {
+    const movies = await axios.get(
+      "https://yts-proxy.nomadcoders1.now.sh/list_movies.json"
+    );
   };
 
-  minus = () => {
-    this.setState((current) => ({
-      count: current.count - 1,
-    }));
-  };
+  componentDidMount() {
+    this.getMovies();
+  }
 
   render() {
-    return (
-      <div>
-        <h1>The number is {this.state.count}</h1>
-        <button onClick={this.add}>Add</button>
-        <button onClick={this.minus}>Minus</button>
-      </div>
-    );
+    const { isLoading } = this.state;
+    return <div>{isLoading ? "Loading..." : "We are ready"}</div>;
   }
 }
 
