@@ -1,6 +1,49 @@
 #  ReactJS App
 ### ReactJS와 create-react-app을 사용하여 웹 서비스 만들기
 
+
+## 목차
+- [ReactJS App](#reactjs-app)
+    - [ReactJS와 create-react-app을 사용하여 웹 서비스 만들기](#reactjs와-create-react-app을-사용하여-웹-서비스-만들기)
+  - [목차](#목차)
+- [Requirements](#requirements)
+    - [nodeJS, npm, npx](#nodejs-npm-npx)
+- [Install](#install)
+  - [create-react-app으로 실행 한다.](#create-react-app으로-실행-한다)
+    - [install](#install-1)
+    - [Class Component](#class-component)
+  - [Component 사용](#component-사용)
+  - [Component Life Cycle API](#component-life-cycle-api)
+    - [Mounting](#mounting)
+    - [Updating](#updating)
+    - [Unmounting](#unmounting)
+  - [Props](#props)
+    - [Props 사용하기](#props-사용하기)
+    - [PropTypes](#proptypes)
+  - [State](#state)
+    - [State 정의](#state-정의)
+    - [setState](#setstate)
+  - [Data Rendering](#data-rendering)
+  - [`Each child in a list should have a unique "key" prop` 에러 해결하기](#each-child-in-a-list-should-have-a-unique-key-prop-에러-해결하기)
+- [Github 페이지에 배포하기](#github-페이지에-배포하기)
+
+    - [Class Component](#class-component)
+  - [Component 사용](#component-사용)
+  - [Component Life Cycle API](#component-life-cycle-api)
+    - [Mounting](#mounting)
+    - [Updating](#updating)
+    - [Unmounting](#unmounting)
+  - [Props](#props)
+    - [Props 사용하기](#props-사용하기)
+    - [PropTypes](#proptypes)
+  - [State](#state)
+    - [State 정의](#state-정의)
+    - [setState](#setstate)
+  - [Data Rendering](#data-rendering)
+  - [`Each child in a list should have a unique "key" prop` 에러 해결하기](#each-child-in-a-list-should-have-a-unique-key-prop-에러-해결하기)
+- [Github 페이지에 배포하기](#github-페이지에-배포하기)
+  
+
 # Requirements
 ### nodeJS, npm, npx
 - nodeJS
@@ -16,7 +59,7 @@
   - 일회성
     - npm으로 패키지를 글로벌 전역으로 설치하게 되면 많은 잔여 파일들이 컴퓨터에 설치되지만 이를 한 번 실행된 후에는 스스로 제거가 되는 것
 
-# install
+# Install
 ## create-react-app으로 실행 한다.
 - create-react-app
   - 리액트는 ES의 최신 문법을 사용하는 경우가 존재하지만, 최신 문법을 지원해주지 않는 브라우저 때문에 webpack이나 babel등과 같은 작업 환경을 구축해야 한다.
@@ -32,6 +75,7 @@
     - 프로젝트 폴더로 이동 후 로컬에서 실행할 수 있다.
 
 # Code
+
 
 ## Component
 - HTML을 반환하는 함수
@@ -304,7 +348,7 @@
 ```
 
 
-## 데이터 렌더링
+## Data Rendering
 - 배열을 Component로 변환해서 Component 여러개를 rendering한다.
 - .map 메소드 사용하기
 ```jsx
@@ -374,7 +418,7 @@
     }
 ```
 
-### `Each child in a list should have a unique "key" prop` 에러 해결하기
+## `Each child in a list should have a unique "key" prop` 에러 해결하기
 - 리액트에서 배열을 랜더링할 때 고유한 key prop이 꼭 필요하다.
 - 데이터를 추가할 때마다 고정적인 고유 값을 부여해주면 된다.
 - 데이터베이스에 데이터를 추가하면 주로 해당 데이터를 가리키는 고유 id가 있고, 그 고유 id를 key prop으로 사용하면 된다.
@@ -427,3 +471,27 @@
     }
 
 ```
+
+# Github 페이지에 배포하기
+1. `npm i gh-pages` 설치
+2. package.JSON파일에 `homepage` 값 생성 (소문자로 작성)
+   ```json
+        {
+            "hompage": "https://{username}.github.io/{projectname}/"
+        }
+    ```
+3. package.JSON파일의 `script`에 명령어 추가
+    ```json
+        "script": {
+            "start": "react-scripts start",
+            "build": "react-scripts build",
+            // 아래 명령어 2개 추가
+            "deploy": "gh-pages -d build",
+            "predeploy": "npm run build"
+        }
+    ```
+    - `npm run build` 명령어는 build 폴더를 우리에게 제공한다.
+    - `gh-pages -d build` 명령어는 build 폴더를 upload 한다.
+4. 터미널에 `npm run deploy` 실행
+    - deploy 명령어를 호출하면 predeploy가 자동으로 실행된다.
+    - `npm run deploy` 명령어를 호출하면 predeploy(`npm run build`)가 먼저 실행되면서 build 폴더를 생성하고 그 다음deploy(`gh-pages -d build`)가 실행되면 build 폴더를 upload한다.
