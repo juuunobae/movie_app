@@ -44,13 +44,13 @@ class App extends React.Component {
     // isLoadingdl false이면(API 응답이 완료되었을때) movies.map을 실행시킨다.
     // 브라우저에 보여줄 API데이터들을 props로 Movie component에 넘겨준다.
     return (
-      <section class="container">
+      <section className="container">
         {isLoading ? (
-          <div class="loader">
-            <span class="loader__text">Loading...</span>
+          <div className="loader">
+            <span className="loader__text">Loading...</span>
           </div>
         ) : (
-          <div class="movies">
+          <div className="movies">
             {movies.map((movie) => (
               <Movie
                 key={movie.id}
@@ -59,6 +59,7 @@ class App extends React.Component {
                 year={movie.year}
                 summary={movie.summary}
                 poster={movie.medium_cover_image}
+                genres={movie.genres}
               />
             ))}
           </div>
