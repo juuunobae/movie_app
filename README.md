@@ -1,6 +1,7 @@
-#  ReactJS App
-### ReactJS와 create-react-app을 사용하여 웹 서비스 만들기
 
+# ReactJS App 
+
+### ReactJS와 create-react-app을 사용하여 웹 서비스 만들기
 
 ## 목차
 - [ReactJS App](#reactjs-app)
@@ -9,8 +10,12 @@
 - [Requirements](#requirements)
     - [nodeJS, npm, npx](#nodejs-npm-npx)
 - [Install](#install)
-  - [create-react-app으로 실행 한다.](#create-react-app으로-실행-한다)
+  - [create-react-app으로 실행 하기](#create-react-app으로-실행-하기)
     - [install](#install-1)
+- [Code](#code)
+  - [Component](#component)
+  - [Component 생성](#component-생성)
+    - [Function Component](#function-component)
     - [Class Component](#class-component)
   - [Component 사용](#component-사용)
   - [Component Life Cycle API](#component-life-cycle-api)
@@ -26,23 +31,13 @@
   - [Data Rendering](#data-rendering)
   - [`Each child in a list should have a unique "key" prop` 에러 해결하기](#each-child-in-a-list-should-have-a-unique-key-prop-에러-해결하기)
 - [Github 페이지에 배포하기](#github-페이지에-배포하기)
-
-    - [Class Component](#class-component)
-  - [Component 사용](#component-사용)
-  - [Component Life Cycle API](#component-life-cycle-api)
-    - [Mounting](#mounting)
-    - [Updating](#updating)
-    - [Unmounting](#unmounting)
-  - [Props](#props)
-    - [Props 사용하기](#props-사용하기)
-    - [PropTypes](#proptypes)
-  - [State](#state)
-    - [State 정의](#state-정의)
-    - [setState](#setstate)
-  - [Data Rendering](#data-rendering)
-  - [`Each child in a list should have a unique "key" prop` 에러 해결하기](#each-child-in-a-list-should-have-a-unique-key-prop-에러-해결하기)
-- [Github 페이지에 배포하기](#github-페이지에-배포하기)
-  
+- [React Router Dom 라이브러리](#react-router-dom-라이브러리)
+  - [Install](#install-2)
+  - [초기화 및 구조 설정](#초기화-및-구조-설정)
+  - [패키지 적용](#패키지-적용)
+    - [App Component 생성](#app-component-생성)
+    - [Navigation Component 생성](#navigation-component-생성)
+    - [Navigation 적용](#navigation-적용)
 
 # Requirements
 ### nodeJS, npm, npx
@@ -60,7 +55,7 @@
     - npm으로 패키지를 글로벌 전역으로 설치하게 되면 많은 잔여 파일들이 컴퓨터에 설치되지만 이를 한 번 실행된 후에는 스스로 제거가 되는 것
 
 # Install
-## create-react-app으로 실행 한다.
+## create-react-app으로 실행 하기
 - create-react-app
   - 리액트는 ES의 최신 문법을 사용하는 경우가 존재하지만, 최신 문법을 지원해주지 않는 브라우저 때문에 webpack이나 babel등과 같은 작업 환경을 구축해야 한다.
   - 리액트 개발을 바로 시작할 수 있도록 위와 같은 작업환경(프로젝트 구조 작업, 설정 작업 등)을 하나의 명령을 실행해서 React Web App을 Set up 할 수 있게 해준다.
@@ -68,14 +63,13 @@
 ### install
 - 터미널에 `npx create-react-app my_app`을 입력하고 설치한다.
   - [my_app] = 원하는 프로젝트 폴더명
-- ```
-    cd my_app
-    npm start   
-  ``` 
-    - 프로젝트 폴더로 이동 후 로컬에서 실행할 수 있다.
+     ```
+        cd my_app
+        npm start   
+    ``` 
+  - 프로젝트 폴더로 이동 후 로컬에서 실행할 수 있다.
 
 # Code
-
 
 ## Component
 - HTML을 반환하는 함수
@@ -475,7 +469,7 @@
 # Github 페이지에 배포하기
 1. `npm i gh-pages` 설치
 2. package.JSON파일에 `homepage` 값 생성 (소문자로 작성)
-   ```json
+    ```json
         {
             "hompage": "https://{username}.github.io/{projectname}/"
         }
@@ -495,3 +489,89 @@
 4. 터미널에 `npm run deploy` 실행
     - deploy 명령어를 호출하면 predeploy가 자동으로 실행된다.
     - `npm run deploy` 명령어를 호출하면 predeploy(`npm run build`)가 먼저 실행되면서 build 폴더를 생성하고 그 다음deploy(`gh-pages -d build`)가 실행되면 build 폴더를 upload한다.
+
+# React Router Dom 라이브러리
+- 웹에서 사용하는 리액트 라우터이며 네비게이션을 만들어 준다.
+  - Routing
+    - URL주소에 따라 다른 뷰를 보여주는 것
+- React의 SPA 구현에 가장 많이 사용되는 패키지이다.
+  - SPA(Single Page Application)
+    - 페이지가 1개인 Application
+    - 화면의 구성요소들이 다시 로드가 되어도 변경되지 않은 부분들은 그대로 유지한 채 변경된 부분의 데이터만 수정하는 웹사이트
+  - React로 SPA를 구현한다는 것은 해당 요청에 맞는 Component만 라우팅하여 부분적으로 rendering 하는 것을 의미한다.
+
+## Install
+- `npm install react-router-dom`으로 패키지 설치
+
+## 초기화 및 구조 설정
+- 디렉토리 생성
+  - `src/components`: 컴포넌트들이 있는 디렉토리
+  - `src/routes`: 각 라우트들이 있는 디렉토리
+  
+## 패키지 적용
+
+### App Component 생성
+```jsx
+        
+        // src/App.js
+
+        import React from 'react';
+        import { BrowserRouter, Route } from 'react-router-dom';
+
+    // class Component를 사용해도 된다.
+        function App() {
+            return (
+                <BrowserRouter>
+                    <Route exact path='/' component={component} />
+                </BrowserRouter>
+            )
+        }
+
+        // Path는 URL 경로를 지정하는 것이고, component는 해당 URL로 접근할 시 보여주게 될 Component이다.
+        // exact는 지정한 URL 경로와 정확히 일치해야 해당 Compoent를 보여주는 것이다.
+
+        export default App
+```
+
+### Navigation Component 생성
+```jsx
+
+    // src/components/Navigation.js
+
+    import React from 'react';
+    import { Link } from 'react-router-dom';
+
+    function Navigation(){
+        // 새로고침되는 a태그와 href속성대신 Link와 to를 사용해 경로를 지정해준다.
+        // Link와 to는 DOM에 생성될 때 a태그와 href로 생성된다.
+        return (
+            <div>
+                <Link to='/'>Home</Link>
+            </div>
+        )
+    }
+
+    export default Navigation
+```
+
+### Navigation 적용
+```jsx
+
+    // src/components/App.js
+    
+    import React from 'react';
+    import { BrowserRouter, Route } from 'react-router-dom';
+    import Navigation from '../components/Navigation';
+
+    function App() {
+        return (
+            <BrowserRouter>
+                <Navigation />
+                <Route exact path='/' component={component} />
+            </BrowserRouter>
+        )
+    }
+
+    export default App
+```
+
