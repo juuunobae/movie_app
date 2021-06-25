@@ -35,13 +35,17 @@
   - [Install](#install-2)
   - [초기화 및 구조 설정](#초기화-및-구조-설정)
   - [패키지 적용](#패키지-적용)
+    - [Navigation Component 생성](#navigation-component-생성)
+      - [Link](#link)
     - [App Component 생성](#app-component-생성)
       - [BrowserRouter](#browserrouter)
       - [Route](#route)
-    - [Navigation Component 생성](#navigation-component-생성)
-      - [Link](#link)
-      - [Route Props](#route-props)
-    - [Navigation 적용](#navigation-적용)
+    - [Route Props](#route-props)
+    - [Route props 사용](#route-props-사용)
+    - [props object](#props-object)
+      - [**History**](#history)
+      - [**Location**](#location)
+      - [**match**](#match)
 
 # Requirements
 ### nodeJS, npm, npx
@@ -514,40 +518,8 @@
   
 ## 패키지 적용
 
-### App Component 생성
-- App Component에 Router를 설정해준다.
-- Router를 사용하기 위해 `react-router-dom` 패키지에서 `BrowserRouter`와 `Route`를 component를 import 해준다.
-```jsx
-        
-        // src/App.js
-
-        import React from 'react';
-        import { BrowserRouter, Route } from 'react-router-dom';
-
-    // class Component를 사용해도 된다.
-        function App() {
-            return (
-                <BrowserRouter>
-                    <Route exact path='/' component={Component} />
-                    <Route path='/about/:id' component={About} />
-                </BrowserRouter>
-            )
-        }
-
-        // Path는 URL 경로를 지정하는 것이고, component는 해당 URL로 접근할 시 보여주게 될 Component이다.
-        // exact는 지정한 URL 경로와 정확히 일치해야 해당 Component를 보여주는 것이다.
-
-        export default App
-```
-- `:id` = :를 붙여 주면 변수가 들어갈 자리로 인식한다.
-#### BrowserRouter
-- 페이지를 새로고침하지 않고 주소를 변경할 수 있게 해준다.
-
-#### Route
-- path 프로퍼티의 URL주소에 따라 그에 해당하는 Component를 보여주는 routing 기능을 가진 component이다.
-- 
-
 ### Navigation Component 생성
+- 어떠한 URL로 접근하기 위한 `Link`태그를 담은 Navigation Component를 새로운 파일에 만들어준다.
 - URL경로를 지정하고 해당 URL로 접근 시 화면에 rendering할 Component를 설정해준다.
 - `react-router-dom` 패키지에서 `Likn` component를 import 한다.
 ```jsx
@@ -569,40 +541,88 @@
 
     export default Navigation
 ```
+
 #### Link
 - 클릭하면 해당 URL로 이동하는 과정에서 새로 불러오지 않고 `History API`만 사용하여 페이지 주소만 변경해준다.
-- Router Compnenet안에서만 동작한다.
+- Router Component안에서만 동작한다.
+
+### App Component 생성
+- App Component에 Router를 설정해준다.
+- Router를 사용하기 위해 `react-router-dom` 패키지에서 `BrowserRouter`와 `Route`를 component를 import 해주고 앞서 만든 Navigation component도 import해준다.
+```jsx
+    
+    // src/App.js
+
+    import React from 'react';
+    import { BrowserRouter, Route } from 'react-router-dom';
+    import Navigation from '../components/Navigation';
+    import Home from './routes/components/Home'
+    import About from './routes/components/About'
+
+    // class Component를 사용해도 된다.
+    function App() {
+        // Navigation Component는 Router Component안에 작성해주어야 한다.
+        return (
+            <BrowserRouter>
+                <Navigation />
+                <Route exact path='/' component={Home} />
+                <Route paht='/about/:id' componrnt={About}>
+            </BrowserRouter>
+        )
+    }
+
+    // Path는 URL 경로를 지정하는 것이고, component는 해당 URL로 접근할 시 보여주게 될 Component이다.
+    // exact는 지정한 URL 경로와 정확히 일치해야 해당 Component를 보여주는 것이다.
+
+    export default App
+```
+
+#### BrowserRouter
+- 페이지를 새로고침하지 않고 주소를 변경할 수 있게 해준다.
+
+#### Route
+- path 프로퍼티의 URL주소에 따라 그에 해당하는 Component를 보여주는 routing 기능을 가진 component이다.
 
 > `Route`는 사용자가 어떤 URL로 접근하면 해당 component를 보여주는 것이고,
-> `Link`는 사용자가 어떠한 URL로 접근할 수 있게 링크(버튼)을 만들어 주는 것이다.</br>
+> `Link`는 사용자가 어떠한 URL로 접근할 수 있게 링크 태그(버튼)을 만들어 주는 것이다.</br>
 > 즉, 사용자가 `Link`를 눌러서 어떠한 URL로 접근하게 되면 `Route`가 그에 해당하는 component를 보여주는 것이다.
 
-#### Route Props
-- Routing되는 Component에 props를 전달하는 방법
+### Route Props
+- Link를 통해 해당 경로로 Routing될 때 Component에 props를 전달
 - `Link` component에 `to` props를 문자열, 객체, 함수중 하나의 방식으로 작성해 Router로 넘겨줄 수 있다.
   - 문자열
     ```jsx
         <Link to="/about?sort=name" />
     ```
     - 경로, 검색, 해쉬 속성을 하나의 문자열로 링크를 생성
+  
   - 객체
     - pathname: URL경로를 작성
     - search: 쿼리 매개변수를 문자열로 작성
     - hash: URL에 넣을 해쉬
     - state: URL에 할당된 Component로 전달되는 props
     ```jsx
-        <Link 
-            to={{
-                pathname: `/about/${id}`,
-                search: '?sort=name',
-                hash: '#the-hash',  
-                state: {
-                    name: 'a',
-                    age: 25,
-                }
-            }}
-        />
+        function App() {
+            return (
+                <BrowserRouter>
+                    <Link 
+                        to={{
+                            pathname: `/about/${id}`,
+                            search: '?sort=name',
+                            hash: '#the-hash',  
+                            state: {
+                                name: 'a',
+                                age: 25,
+                            }
+                        }}
+                    />
+                    <Route path='/about/:id' component={Component} />
+                </BrowserRouter>
+            )
+        }
     ```
+    - `:id` = :를 붙여 주면 해당 위치의 경로에 값을 넣어 파라미터를 전송할 수 있다.
+  
   - 함수
     ```jsx
         <Link to={location => ({...location, pathname: '/about'})} />
@@ -610,26 +630,68 @@
         <Link to={location => `${location.pathname}?sort=name`} />
     ```
 
-### Navigation 적용
-```jsx
+### Route props 사용
+- `Link to`를 통해 전달 받은 props를 연결된 component에서 사용하려면
+- function
+    ```jsx
 
-    // src/components/App.js
-    
-    import React from 'react';
-    import { BrowserRouter, Route } from 'react-router-dom';
-    import Navigation from '../components/Navigation';
+        // src/components/About.js
 
+        import React from 'react';
 
-    function App() {
-        // Navigation Component는 Router Component안에 작성해주어야 한다.
-        return (
-            <BrowserRouter>
-                <Navigation />
-                <Route exact path='/' component={Component} />
-            </BrowserRouter>
-        )
-    }
+        function About(props){
+            console.log(props)
 
-    export default App
-```
+            return(
+                <h1>This is Home Component</h1>
+            ) 
+        }
+    ```
+  
+- class
+    ```jsx
+        
+        /// scr/components/About.js
 
+        import React from 'react';
+
+        class About extends React.Component {
+            render() {
+                console.log(this.props);
+                
+                return(
+                    <h1>This is Home Component</h1>
+                )
+            }
+        }
+
+    export default Home
+
+    ```
+
+### props object
+- 전달받은 props에는 `history, location, match`가 담겨있다.
+
+#### **History**
+- 브라우저의 history와 유사하다. stack에 현재까지 이동한 url 경로들이 담겨있는 형태로 주소를 임의로 변경하거나 되돌아갈 수 있도록 해준다.</br></br>
+
+- **length**: [number] 전체 history 스택의 길이
+- **action**: [string] 최근에 수행된 action(PUSH, REPLACE or POP)
+- **location**: [JSON object] 최근 경로 정보
+- **push(path, [state])**: [function] 새로운 경로를 history 스택으로 푸시하여 페이지를 이동
+- **replace(path, [state])**: [function] 최근 경로를 history 스택에서 교체아여 페이지를 이동
+- **go(n)**: [function] history 스택의 포인터를 n번째로 이동
+- **goBack()**: [function] 이전 페이지로 이동
+- **goForward()**: [function] 앞 페이지로 이동
+- **block(prompt)**: [function] history 스택의 PUSH/POP 동작을 제어
+
+#### **Location**
+- 현재 페이지의 정보를 가지고 있다. URL을 다루기 쉽게 쪼개서 가지고 있다.</br></br>
+
+- **pathname**: [string] 현재 페이지의 경로명
+- **search**: [string] 현재 페이지의 query string
+- **hash**: [string] 현재 페이지의 hash
+- **state**:
+
+#### **match**
+- <Route />의 'path'에서 정의한 것과 매치된 정보를 담고있다.
