@@ -691,7 +691,12 @@
 - **pathname**: [string] 현재 페이지의 경로명
 - **search**: [string] 현재 페이지의 query string
 - **hash**: [string] 현재 페이지의 hash
-- **state**:
+- **state**: [JSON object] 상위 component의 Link component에서 전달받은 state
 
 #### **match**
-- <Route />의 'path'에서 정의한 것과 매치된 정보를 담고있다.
+- <Route />의 'path'에서 정의한 것과 매치된 정보를 담고있다.</br></br>
+
+- **path**: [string] 라우터에 정의된 path
+- **url**: [string] 실제 클라이언트로부터 요청된 url path
+- **isExact**: [boolean] true일 경우 전체 경로가 완전히 매칭될 경우에만 요청을 수행
+- **params**: [JSON object] url path로 전달된 파라미터 객체
