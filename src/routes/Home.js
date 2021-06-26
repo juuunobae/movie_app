@@ -1,10 +1,14 @@
 // 파일에서 jsx를 사용하려면 React를 import 해주어야 한다.
 // jsx = html문법을 Javascript내부에 작성한 것
 import React from "react";
+
 // API를 사용하기 위해서 axios를 설치 후 import 해준다.
 import axios from "axios";
+
 // 각 movie들을 랜더링할 Moive component를 import 해준다.
 import Movie from "../components/movies";
+
+// css 파일 import
 import "./Home.css";
 
 // ReactDom에서 rendering 할 Component
@@ -42,7 +46,7 @@ class Home extends React.Component {
     const { isLoading, movies } = this.state;
     // isLoading이 true이면(API 응답이 아직 완료되지 않았을 때) 'Loading...'을 보여주고,
     // isLoadingdl false이면(API 응답이 완료되었을때) movies.map을 실행시킨다.
-    // 브라우저에 보여줄 API데이터들을 props로 Movie component에 넘겨준다.
+    // Movie component에 브라우저에서 보여줄 API데이터들을 props로 넘겨준다.
     return (
       <section className="container">
         {isLoading ? (

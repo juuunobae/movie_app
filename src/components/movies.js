@@ -1,11 +1,20 @@
 import React from "react";
+
+// Link 태그를 만들기위해 import
 import { Link } from "react-router-dom";
+
+// Props의 type을 지정해주기 위해 import
 import PropTypes from "prop-types";
+
+// css 파일 import
 import "./Movie.css";
 
 // Movie들을 랜더링할 함수 componet를 생성 후 props를 인자로 받는다.
 function Movie({ id, title, year, summary, poster, genres }) {
   return (
+    // 각 영화들에 따라 다른 세부페이지를 보여주기 위해 그에 해당하는 각각의 데이터들을 to props로 전달한다.
+    // pathname에는 영화 데이터들의 id값을 넣고, state에는 필요한 데이터들을 넣어 Route로 넘겨준다.
+    // 사용자가 클릭을 하면 그 영화 데이터의 id값을 path에 넣어 Route에게 요청을 할 것이다.
     <Link
       to={{
         pathname: `/movie/${id}`,
