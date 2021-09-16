@@ -28,6 +28,7 @@ class Home extends React.Component {
     } = await axios.get(
       "https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating"
     );
+
     // API요청으로 얻은 데이터를 setState로 state를 변경해준다.
     // API요청으로 얻은 movies 배열을 state에서 정의한 movies 배열에 담는다.
     // 요청이 끝나서 로딩도 끝났기 때문에 isLoading를 false로 바꿔준다.

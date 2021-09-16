@@ -4,8 +4,6 @@ import React from "react";
 class Detail extends React.Component {
   // Detail component를 rendering 후 잘못된 접근이면 home으로 redirect 시키기 위한 코드
   componentDidMount() {
-    console.log(this.props);
-
     // Route에서 넘겨받은 props에 있는 location, history 객체를 불러온다.
     const { location, history } = this.props;
 

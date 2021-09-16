@@ -5,7 +5,7 @@ import App from "./App";
 // App이라는 리엑트 컴포넌트를 import 하는 것
 
 // 브라우저에 리액트 컴포넌트를 보여주기 위해서 ReactDom.render 함수를 사용한다.
-// 첫번 째 파라미터는 렌디링 할 결과물이고, 두번 째 파라미터는 컴포넌트를 렌더링 할 DOM이다.
+// 첫번 째 파라미터는 렌더링 할 결과물이고, 두번 째 파라미터는 컴포넌트를 렌더링 할 DOM이다.
 // id가 root인 태그에 App 컴포넌트를 렌더링하는 것
 // 해당 태그는 public/index.html 파일에서 찾는다.
 ReactDOM.render(<App />, document.getElementById("root"));
